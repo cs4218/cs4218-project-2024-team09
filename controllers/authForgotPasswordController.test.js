@@ -1,26 +1,10 @@
 import { forgotPasswordController } from './authController.js';
 import userModel from '../models/userModel.js';
-import orderModel from '../models/orderModel.js';
-import { hashPassword, comparePassword } from '../helpers/authHelper.js';
-import JWT from 'jsonwebtoken';
-import exp from 'constants';
-import { describe } from 'node:test';
-import { hash } from 'bcrypt';
+import { hashPassword } from '../helpers/authHelper.js';
 
 jest.mock('../models/userModel.js');
 jest.mock('../models/orderModel.js');
 jest.mock('../helpers/authHelper.js');
-
-/*
-testcases:
-1. no email
-2. email invalid
-3. no answer
-4. no new pw
-5. message if !user
-6. pw reset success
-7. error sth went wrong
-*/
 
 describe('forgotPasswordController', () => {
     let req, res;
@@ -53,7 +37,7 @@ describe('forgotPasswordController', () => {
         };
     });
 
-    it('BUG: should return error message if email is empty', async() => {
+    it('BUG: should throw error if email is empty', async() => {
         // Arrange
         req.body = {
             email: '',
@@ -71,7 +55,25 @@ describe('forgotPasswordController', () => {
         expect(res.statusCode).toBe(400);
     })
 
-    it('BUG: should return error message if answer is empty', async() => {
+    it('BUG: should throw error if email is invalid', async() => {
+        // Arrange
+        req.body = {
+            email: 'johnEmail',
+            answer: 'answer',
+            newPassword: 'newPassword'
+        }
+        
+        // Action
+        await forgotPasswordController(req, res);
+
+        // Assert
+        expect(res.status).toHaveBeenCalledTimes(1);
+        expect(res.send).toHaveBeenCalledTimes(1);
+        expect(res._getData()).toEqual({ error: "Emai is Required" });
+        expect(res.statusCode).toBe(400);
+    })
+
+    it('BUG: should throw error if answer is empty', async() => {
         // Arrange
         req.body = {
             email: 'john@test.com',
@@ -89,7 +91,7 @@ describe('forgotPasswordController', () => {
         expect(res.statusCode).toBe(400);
     })
 
-    it('BUG: should return error message if newPassword is empty', async() => {
+    it('BUG: should throw error if newPassword is empty', async() => {
         // Arrange
         req.body = {
             email: 'john@test.com',
@@ -107,7 +109,7 @@ describe('forgotPasswordController', () => {
         expect(res.statusCode).toBe(400);
     })
 
-    it('should return error message if user does not exist', async () => {
+    it('should throw error if user does not exist', async () => {
         // Arrange
         req.body = {
             email: 'john@test.com',
@@ -128,7 +130,8 @@ describe('forgotPasswordController', () => {
         });
     });
 
-    it('should reset password if user exists', async () => {
+    it('should successfully reset password if user exists', async () => {
+        // Arrange
         req.body = {
             email: 'john@test.com',
             answer: 'answer',
@@ -139,8 +142,10 @@ describe('forgotPasswordController', () => {
         hashPassword.mockResolvedValue('hashedpassword');
         userModel.findByIdAndUpdate.mockResolvedValue(mockUser);
     
+        // Action
         await forgotPasswordController(req, res);
 
+        // Assert
         expect(res.status).toHaveBeenCalledTimes(1);
         expect(res.send).toHaveBeenCalledTimes(1);
         expect(res.statusCode).toBe(200);
@@ -150,7 +155,7 @@ describe('forgotPasswordController', () => {
         });
     });
 
-    it('BUG: doesnt handle error in registration', async () => {
+    it('should prevent password reset if error is thrown during the reset process', async () => {
         // Arrange
         req.body = {
             email: 'john@test.com',
@@ -159,17 +164,20 @@ describe('forgotPasswordController', () => {
         };
         const error = new Error("Something went wrong");
         userModel.findOne.mockRejectedValue(error); // Simulate existing user
-
         const consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+
+        // Action  
         await forgotPasswordController(req, res);
 
+        // Assert
         expect(res.status).toHaveBeenCalledTimes(1);
         expect(res.send).toHaveBeenCalledTimes(1);
         expect(consoleSpy).toHaveBeenCalledWith(error);
         expect(res.statusCode).toBe(500);
         expect(res._getData()).toEqual({
             success: false,
-            message: "Something went wrong"
+            message: "Something went wrong",
+            error
         });
     });
 });
