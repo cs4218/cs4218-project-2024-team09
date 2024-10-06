@@ -32,6 +32,18 @@ describe("Private Component", () => {
     await waitFor(() => expect(axios.get).toHaveBeenCalledWith("/api/v1/auth/user-auth"))
     const adminContent = await screen.findByText("User Content");
     expect(adminContent).toBeInTheDocument();
+    expect(screen.queryByText("Loading...")).not.toBeInTheDocument();
+  });
+
+  it('renders a Spinner when user has a token, but disallowed by backend', async () => {
+    useAuth.mockReturnValue([{ user: 'user', token: 'valid-token'}, mockSetAuth]);
+    axios.get.mockResolvedValueOnce({ data: { ok: false }});
+    Outlet.mockReturnValue(<div>User Content</div>);
+
+    render(<Private />)
+
+    await waitFor(() => expect(axios.get).toHaveBeenCalledWith("/api/v1/auth/user-auth"))
+    expect(screen.getByText("Loading...")).toBeInTheDocument();
   });
 
   it('renders a Spinner when user is not authenticated', async () => {

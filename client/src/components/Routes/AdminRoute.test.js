@@ -32,6 +32,7 @@ describe("Admin Route Component", () => {
     await waitFor(() => expect(axios.get).toHaveBeenCalledWith("/api/v1/auth/admin-auth"))
     const adminContent = await screen.findByText("Admin Content");
     expect(adminContent).toBeInTheDocument();
+    expect(screen.queryByText("Loading...")).not.toBeInTheDocument();
   });
 
   it('renders a Spinner when user is not an admin', async () => {
