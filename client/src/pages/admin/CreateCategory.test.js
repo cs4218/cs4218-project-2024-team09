@@ -102,7 +102,7 @@ describe('CreateCategory Component', () => {
       expect(screen.getByText("Category 1")).toBeInTheDocument();
     });
 
-    const deleteButton = screen.getByRole('button', { name: 'Delete' }); // Use regex to make it case-insensitive
+    const deleteButton = screen.getByRole('button', { name: 'Delete' });
 
     fireEvent.click(deleteButton);
 

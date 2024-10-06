@@ -6,14 +6,15 @@ import axios from 'axios';
 
 
 jest.mock("axios");
-//data fetched with 2 entries array in category
 const testCategories1 = {category: ["Category 1", "Category 2"]};
-//data fetched with empty array in category
 const testCategories2 = {category: []};
-//data fetched is null
 const testCategories3 = {category: null};
-//data fetched with no category property
 const testCategories4 = {categories: ["Category 1", "Category 2"]};
+const testCategories5 = {category: ["Category 1"]};
+const testCategories6 = {};
+const testCategories7 = { category: { nested: ["Category 1"] } };
+const testCategories8 = { category: [""] };
+const testCategories9 = { category: [123] };
 
 const mockAxiosGet = (mockData) => {
     axios.get.mockImplementationOnce(() => Promise.resolve({data: mockData}));
@@ -61,6 +62,61 @@ describe("useCategory", () => {
         return <div data-testid="test">{categories}</div>;
     }
     render(<MockComponent></MockComponent>);
+    const find = await screen.findByTestId("test");
+    expect(find).toContainHTML('<div data-testid="test"></div>');
+  });
+
+  it("data fetched with single entry in category", async () => {
+    mockAxiosGet(testCategories5);
+    const MockComponent = () => {
+      const categories = useCategory();
+      return <div>{categories.toString()}</div>;
+    };
+    render(<MockComponent />);
+    const find = await screen.findByText(testCategories5.category.toString());
+    expect(find).toBeInTheDocument();
+  });
+
+  it("data fetched with undefined category property", async () => {
+    mockAxiosGet(testCategories6);
+    const MockComponent = () => {
+      const categories = useCategory();
+      return <div data-testid="test">{categories}</div>;
+    };
+    render(<MockComponent />);
+    const find = await screen.findByTestId("test");
+    expect(find).toContainHTML('<div data-testid="test"></div>');
+  });
+
+  it("data fetched with unexpected nested object in category", async () => {
+    mockAxiosGet(testCategories7);
+    const MockComponent = () => {
+      const categories = useCategory();
+      return <div data-testid="test">{categories}</div>;
+    };
+    render(<MockComponent />);
+    const find = await screen.findByTestId("test");
+    expect(find).toContainHTML('<div data-testid="test"></div>');
+  });
+
+  it("data fetched with empty string in category", async () => {
+    mockAxiosGet(testCategories8);
+    const MockComponent = () => {
+      const categories = useCategory();
+      return <div data-testid="test">{categories.toString()}</div>;
+    };
+    render(<MockComponent />);
+    const find = await screen.findByTestId("test");
+    expect(find).toContainHTML('<div data-testid="test"></div>');
+  });
+
+  it("data fetched with numerical category", async () => {
+    mockAxiosGet(testCategories8);
+    const MockComponent = () => {
+      const categories = useCategory();
+      return <div data-testid="test">{categories}</div>;
+    };
+    render(<MockComponent />);
     const find = await screen.findByTestId("test");
     expect(find).toContainHTML('<div data-testid="test"></div>');
   });
