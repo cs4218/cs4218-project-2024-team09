@@ -1,42 +1,67 @@
-import { render, screen, fireEvent } from "@testing-library/react";
-import CategoryForm from "./CategoryForm";
-import React from "react";
-import '@testing-library/jest-dom';
+import React from 'react';
+import { render, fireEvent, screen } from '@testing-library/react';
+import '@testing-library/jest-dom/extend-expect';
+import CategoryForm from './CategoryForm';
 
-describe("CategoryForm Component", () => {
-  it("renders input and submit button", () => {
-    render(<CategoryForm handleSubmit={jest.fn()} value="" setValue={jest.fn()} />);
-
-    // Check if input element is rendered
-    const inputElement = screen.getByPlaceholderText(/Enter new Category/i);
-    expect(inputElement).toBeInTheDocument();
-
-    // Check if submit button is rendered
-    const submitButton = screen.getByRole("button", { name: /submit/i });
-    expect(submitButton).toBeInTheDocument();
-  });
-
-  it("calls setValue on input change", () => {
-    const mockSetValue = jest.fn();
-    render(<CategoryForm handleSubmit={jest.fn()} value="" setValue={mockSetValue} />);
-
-    // Simulate user typing into input
-    const inputElement = screen.getByPlaceholderText(/Enter new Category/i);
-    fireEvent.change(inputElement, { target: { value: "New Category" } });
-
-    // Verify that setValue was called with the new input value
-    expect(mockSetValue).toHaveBeenCalledWith("New Category");
-  });
-
-  it("calls handleSubmit on form submission", () => {
+describe('Category Form Component', () => {
+  it('should call handleSubmit with empty input', () => {
     const mockHandleSubmit = jest.fn();
-    render(<CategoryForm handleSubmit={mockHandleSubmit} value="New Category" setValue={jest.fn()} />);
+    render(<CategoryForm value="" setValue={jest.fn()} handleSubmit={mockHandleSubmit} />);
+    
+    fireEvent.submit(screen.getByRole('button'));
 
-    // Simulate user submitting the form
-    const submitButton = screen.getByRole("button", { name: /submit/i });
-    fireEvent.submit(submitButton); // Use fireEvent.submit to simulate form submission
+    expect(mockHandleSubmit).toHaveBeenCalled();
+  });
 
-    // Verify that handleSubmit was called
-    expect(mockHandleSubmit).toHaveBeenCalledTimes(1);
+  it('should call handleSubmit with single character input', () => {
+    const mockHandleSubmit = jest.fn();
+    render(<CategoryForm value="A" setValue={jest.fn()} handleSubmit={mockHandleSubmit} />);
+    
+    fireEvent.submit(screen.getByRole('button'));
+
+    expect(mockHandleSubmit).toHaveBeenCalled();
+  });
+
+  it('should handle input with 255 characters', () => {
+    const mockHandleSubmit = jest.fn();
+    const longValue = 'a'.repeat(255); // Test boundary value
+
+    render(<CategoryForm value={longValue} setValue={jest.fn()} handleSubmit={mockHandleSubmit} />);
+    
+    fireEvent.submit(screen.getByRole('button', { name: /submit/i }));
+
+    expect(mockHandleSubmit).toHaveBeenCalled();
+  });
+
+  it('calls setValue on input change', () => {
+    const mockSetValue = jest.fn();
+    render(<CategoryForm value="" setValue={mockSetValue} handleSubmit={jest.fn()} />);
+
+    fireEvent.change(screen.getByPlaceholderText('Enter new category'), {
+      target: { value: 'New Category' },
+    });
+
+    expect(mockSetValue).toHaveBeenCalledWith('New Category');
+  });
+
+  it('calls setValue multiple times as input changes', () => {
+    const mockSetValue = jest.fn();
+
+    render(<CategoryForm value="" setValue={mockSetValue} handleSubmit={jest.fn()} />);
+
+    const input = screen.getByPlaceholderText('Enter new category');
+
+    // Simulate typing various input changes
+    fireEvent.change(input, { target: { value: 'A' } });
+    fireEvent.change(input, { target: { value: 'AB' } });
+    fireEvent.change(input, { target: { value: 'ABC' } });
+
+    // Ensure setValue is called with the updated value each time
+    expect(mockSetValue).toHaveBeenCalledWith('A');
+    expect(mockSetValue).toHaveBeenCalledWith('AB');
+    expect(mockSetValue).toHaveBeenCalledWith('ABC');
+
+    // Check how many times setValue was called
+    expect(mockSetValue).toHaveBeenCalledTimes(3);
   });
 });
