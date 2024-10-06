@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/extend-expect';
 import CategoryForm from './CategoryForm';
 
 describe('Category Form Component', () => {
-  it('should call handleSubmit with empty input', () => {
+  it('calls handleSubmit with empty input', () => {
     const mockHandleSubmit = jest.fn();
     render(<CategoryForm value="" setValue={jest.fn()} handleSubmit={mockHandleSubmit} />);
     
@@ -13,7 +13,7 @@ describe('Category Form Component', () => {
     expect(mockHandleSubmit).toHaveBeenCalled();
   });
 
-  it('should call handleSubmit with single character input', () => {
+  it('calls handleSubmit with single character input', () => {
     const mockHandleSubmit = jest.fn();
     render(<CategoryForm value="A" setValue={jest.fn()} handleSubmit={mockHandleSubmit} />);
     
@@ -22,7 +22,7 @@ describe('Category Form Component', () => {
     expect(mockHandleSubmit).toHaveBeenCalled();
   });
 
-  it('should handle input with 255 characters', () => {
+  it('calls handleSubmit with 255 characters input', () => {
     const mockHandleSubmit = jest.fn();
     const longValue = 'a'.repeat(255); // Test boundary value
 
