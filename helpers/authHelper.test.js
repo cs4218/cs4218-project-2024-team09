@@ -69,11 +69,11 @@ describe('comparePassword', () => {
         expect(result).toBe(false);
     });
 
-    it('BUG: should handle error if bcrypt.compare() throws an error', async () => {
+    it('BUG: should handle error gracefully if bcrypt.compare() throws an error', async () => {
         // Arrange
         const error = new Error('Compare failed');
         bcrypt.compare.mockRejectedValue(error);
-
+        
         // Action
         const result = await comparePassword(password, hashedPassword);
 

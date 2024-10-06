@@ -45,6 +45,7 @@ describe('Product List Controller', () => {
   it('BUG: should throw error if given an invalid page parameter', async () => {
     // Arrange
     req.params.page = 'invalid'; // Non-numeric string
+    const error = new Error("Invalid page");
     
     // Act
     await productListController(req, res);
