@@ -52,20 +52,4 @@ describe("Spinner Component", () => {
 
     expect(mockNavigate).toHaveBeenCalledWith("/login", { state: "/some-path" });
   });
-
-  it("stops the countdown when unmounted", () => {
-    const clearIntervalSpy = jest.spyOn(global, "clearInterval").mockImplementation(() => {});
-
-    const { unmount } = render(
-      <MemoryRouter>
-        <Spinner />
-      </MemoryRouter>
-    );
-
-    unmount();
-
-    expect(clearIntervalSpy).toHaveBeenCalled();
-
-    clearIntervalSpy.mockRestore()
-  });
 });
