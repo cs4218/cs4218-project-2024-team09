@@ -77,7 +77,7 @@ test.beforeAll( async () => {
 /* 
 Fails non-deterministically as each filter seems to work sometimes and not work at other times 
 for unknown reasons. I have tried manually filtering on the site itself and I experience the
-same non-deterministic behaviour when doing so as well
+same non-deterministic behaviour of filters when doing so as well
 */
 test('BUG: Filter products by price or/and category', async ({ page }) => {
     await page.goto('http://localhost:3000/login');

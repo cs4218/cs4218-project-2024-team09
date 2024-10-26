@@ -111,8 +111,8 @@ test('search for product', async ({ page }) => {
 });
 
 test.afterAll( async () => { 
-        await productModel.deleteMany({});
-        await categoryModel.deleteMany({});
+    await productModel.deleteMany({});
+    await categoryModel.deleteMany({});
 
-        mongoose.disconnect();
+    mongoose.disconnect();
 });
