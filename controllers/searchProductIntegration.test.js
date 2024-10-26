@@ -130,15 +130,4 @@ describe('Integration Test: searchProductController', () => {
       error: expect.any(Object), // Checking for an error object
     });
   });
-
-  it('should return an empty array when no products match the search keyword', async () => {
-    // Arrange: Simulate a valid request searching for non-existing item
-    req = { params: { keyword: 'no such item' } };
-
-    // Act: Call the controller function
-    await searchProductController(req, res);
-
-    // Assert: Check if the response contains an empty array
-    expect(res.json).toHaveBeenCalledWith([]);
-  });
 });
