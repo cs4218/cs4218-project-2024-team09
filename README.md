@@ -72,3 +72,29 @@ In OrdersIntegration, there is no workaround as the necessary functions calling 
 1. **DashboardIntegration.test.js:** Testing the integration between Dashboard and Usermenu, and Dashboard and MongoDB by logging in and checking the dashboard.
 2. **OrdersIntegration.test.js:** Testing the integration between Orders and MongoDB by checking if orders are reflected on a user's order page, and if order statuses are reflected after an admin's update.
 3. **ProfileIntegration.test.js:** Testing the integration between Profile and MongoDB by checking if profile data are reflected on a user's profile page and if user is able to make changes to their profile.
+
+## William Chau Wei Xuan
+### UI Testing
+(the files listed below are located in the 'tests' folder)
+1. **cart.spec.mjs: (3 tests)**
+   - **User flow 1 (Add & Remove):** 
+     - User goes to category, selects one category and then one product and adds it to cart.
+     - User then goes to cart and removes the item
+     - **Verification 1:** Verify that the item is in the cart, verify that the item has been removed from the cart
+   - **User flow 2 (Add, Login, Pay):**
+     - User goes to adds an item to cart and goes to the cart page
+     - User is made to login and logins to pay
+     - **Verification 2:** Verify that that user is able to pay
+   - **User flow 3 (Browsing):**
+     - User browses items by category and is able to see the details of each item without buying
+     - **Verification 3:** Verify that the item details are present and that each category has the products present
+
+### Integration testing
+(the files listed below are located in the 'pages' folder)
+- **CartFlow.integration.js:** Testing the integration of pages involved in the Cart workflow (CartPage, Categories, CategoriesProduct, ProductDetails)
+   1. Tests that ProductDetails is able to call API successfully to display the specific details
+   2. Tests that ProductDetails is able to call API successfully to display similar products
+   3. Tests that CartPage is able to call API successfully for payment
+   4. Tests that Categories is able to call API successfully to display all categories
+   5. Tests that CategoriesProduct is able to call API successfully to display all Products
+
