@@ -74,6 +74,10 @@ In OrdersIntegration, there is no workaround as the necessary functions calling 
 3. **ProfileIntegration.test.js:** Testing the integration between Profile and MongoDB by checking if profile data are reflected on a user's profile page and if user is able to make changes to their profile.
 
 ## William Chau Wei Xuan
+
+Cart Workflow 
+- (CartPage (/cart), Categories (/category), CategoriesProduct (/category/:slug), ProductDetails (/product/:slug))
+
 ### UI Testing
 (the files listed below are located in the 'tests' folder)
 1. **cart.spec.mjs: (3 tests)**
@@ -97,4 +101,4 @@ In OrdersIntegration, there is no workaround as the necessary functions calling 
    3. Tests that CartPage is able to call API successfully for payment
    4. Tests that Categories is able to call API successfully to display all categories
    5. Tests that CategoriesProduct is able to call API successfully to display all Products
-
+   5a. (All tests fail as client API calls are missing server address)
