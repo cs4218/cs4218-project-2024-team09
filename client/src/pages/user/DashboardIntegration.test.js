@@ -17,12 +17,9 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-// Mocking the Layout component
 jest.mock("../../components/Layout", () => {
   return ({ children }) => <>{children}</>;
 });
-
-// Mocking react-router-dom functions
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   useNavigate: jest.fn(),
