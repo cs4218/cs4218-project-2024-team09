@@ -35,7 +35,7 @@ test('User can log in, update profile name, and see it reflected', async ({ page
   await page.getByPlaceholder('Enter Your Password').fill(mockPassword);
   await page.getByRole('button', { name: 'LOGIN' }).click();
 
-  // Navigate to profile page
+  // Navigate to dashboard
   await page.locator('a.nav-link.dropdown-toggle:has-text("Mock User")').click();
   await page.locator('a.dropdown-item:has-text("Dashboard")').click();
 

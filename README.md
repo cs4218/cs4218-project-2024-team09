@@ -31,3 +31,28 @@ The other members in the team will be able to see an existing team with your tea
 (the files listed below are located in the 'controllers' folder)
 1. **filterProductIntegration.test.js:** Testing the integration between filterProductController, productModel and the database by simulating a filter request.
 2. **searchProductIntegration.test.js:** Testing the intergration between searchProductController, productModel and the database by simulating a search request.
+
+## Chang Si Kai
+### UI Testing
+(the files listed below are located in the 'tests' folder)
+1. **makeUserOrder.spec.mjs:**
+   - **User flow:** User logs in, then adds an item to the cart, then pays, then navigates to the Order page.
+   - **Verification:** The UI test verifies that the order was successfully placed.
+2. **userDashboard.spec.mjs:** 
+   - **User flow:** User logs in, then goes to the dashboard.
+   - **Verification:** The UI test verifies that the user can see his dashboard, and not admin's dashboard.
+3. **updateProfile.spec.mjs:**
+   - **User flow:** User logs in, then navigates to dashboard, then navigates to profile, fills up new details for his new name, then goes back to the dashboard.
+   - **Verification:** The UI test verifies that the user can update his profile and see the changes reflected in the dashboard and navbar.
+
+### Integration testing
+IMPORTANT NOTE: Due to the original code's misconfiguration with Jest, API calls in jestdom environment to the backend made from the frontend cannot be completed, limiting the test's results. As a result, I turned the focus towards the ability to access MongoDB.
+
+In order to run the test cases successfully, you must have an instance of server running in the background, since jest is not configured to proxy requests from frontend to backend.
+
+In OrdersIntegration, there is no workaround as the necessary functions calling the backend API cannot be mocked as they are internal.
+
+(the files listed below are located in the 'client/src/pages/user' folder)
+1. **DashboardIntegration.test.js:** Testing the integration between Dashboard and Usermenu, and Dashboard and MongoDB by logging in and checking the dashboard.
+2. **OrdersIntegration.test.js:** Testing the integration between Orders and MongoDB by checking if orders are reflected on a user's order page, and if order statuses are reflected after an admin's update.
+3. **ProfileIntegration.test.js:** Testing the integration between Profile and MongoDB by checking if profile data are reflected on a user's profile page and if user is able to make changes to their profile.

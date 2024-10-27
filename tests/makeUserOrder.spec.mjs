@@ -57,7 +57,7 @@ test('User can log in, make an order, and see it reflected', async ({ page }) =>
   await page.getByPlaceholder('Enter Your Password').fill(mockPassword);
   await page.getByRole('button', { name: 'LOGIN' }).click();
 
-  // Navigate to profile page
+  // Adds item to cart
   await page.getByRole('button', { name: 'Add to Cart' }).first().click();
 
   // Navigate to cart
