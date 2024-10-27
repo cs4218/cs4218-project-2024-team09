@@ -8,6 +8,9 @@ dotenv.config();
 
 test.beforeAll( async () => {
     await mongoose.connect(process.env.MONGO_URL);
+});
+
+test.beforeEach( async ({ page }) => {
     await productModel.deleteMany({});
     await categoryModel.deleteMany({});
 
@@ -72,18 +75,18 @@ test.beforeAll( async () => {
     await jeans.save();
     await shirt.save();
     await ps5.save();
-});
+
+    await page.goto('http://localhost:3000/login');
+    await page.getByRole('link', { name: 'HOME' }).click();
+    await expect(page).toHaveURL('http://localhost:3000');
+})
 
 /* 
 Fails non-deterministically as each filter seems to work sometimes and not work at other times 
 for unknown reasons. I have tried manually filtering on the site itself and I experience the
 same non-deterministic behaviour of filters when doing so as well
 */
-test('BUG: Filter products by price or/and category', async ({ page }) => {
-    await page.goto('http://localhost:3000/login');
-    await page.getByRole('link', { name: 'HOME' }).click();
-    await expect(page).toHaveURL('http://localhost:3000');
-    
+test('BUG: Filter products by price or/and category', async ({ page }) => { 
     // Filter by price range $0 to $19
     await page.click('text="$0 to 19"');
     await expect(page.getByText('Bread')).toBeVisible();
@@ -122,7 +125,6 @@ test('BUG: Filter products by price or/and category', async ({ page }) => {
 
 test.afterAll( async () => {
     await productModel.deleteMany({});
-    await categoryModel.deleteMany({});
-    
+    await categoryModel.deleteMany({}); 
     mongoose.disconnect();
 });

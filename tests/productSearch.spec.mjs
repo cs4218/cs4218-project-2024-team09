@@ -8,6 +8,11 @@ dotenv.config();
 
 test.beforeAll( async () => {
     await mongoose.connect(process.env.MONGO_URL);
+});
+
+test.beforeEach( async ({ page }) => {
+    await productModel.deleteMany({});
+    await categoryModel.deleteMany({});
 
     // Create categories
     const foodCategory = new categoryModel({
@@ -70,9 +75,7 @@ test.beforeAll( async () => {
     await bread2.save();
     await shirt.save();
     await ps5.save();
-});
 
-test.beforeEach( async ({ page }) => {
     await page.goto('http://localhost:3000/login');
     await page.getByRole('link', { name: 'HOME' }).click();
     await expect(page).toHaveURL('http://localhost:3000');
@@ -110,9 +113,8 @@ test('search for product', async ({ page }) => {
     await expect(page.getByText('No Products Found')).toBeVisible();
 });
 
-test.afterAll( async () => { 
+test.afterAll( async () => {
     await productModel.deleteMany({});
     await categoryModel.deleteMany({});
-
     mongoose.disconnect();
 });
