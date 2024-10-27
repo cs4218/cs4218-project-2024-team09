@@ -14,6 +14,21 @@ The other members in the team will be able to see an existing team with your tea
 ## Step 3. All of you should be able to see the acceptance page. Click on the assignment link to see the project on GitHub.
 
 ## Milestone 2 Contributions
+## Hoang Huu Chinh
+### UI Testing
+(the files listed below are located in the 'tests' folder)
+1. **adminCreateProduct.spec.mjs: (2 tests)**
+   - **User flow:** Admin login with their credentials, then navigate to admin dashboard, categories tab and create new categories or deleting an existing categories
+   - **Verification:** Verify the new category created and showed on the UI, the deleting category is could not be found anymore
+2. **adminCreateProduct.spec.mjs: (1 tests)**
+   - **User flow:** Admin login with their credentials, then navigate to admin dashboard, create product tab and create a new product
+   - **Verification:** Verify by 
+
+### Integration testing
+(the files listed below are located in the 'pages/admin' folder)
+1. **CreateCategory-CategoryForm.test.js:** Testing the integration between CreateCategory and CategoryForm
+2. **Users-Layout-AdminMenu.test.js:** Testing the intergration between Users, Layout and Adminmenu
+
 ## Yeo Kai Jiun
 ### UI Testing
 (the files listed below are located in the 'tests' folder)
