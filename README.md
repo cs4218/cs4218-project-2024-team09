@@ -12,3 +12,22 @@ If your group number is a single digit, i.e 2024-Team1 is fine as well.)
 The other members in the team will be able to see an existing team with your team number in the “Join an existing team” section. Click Join.
 
 ## Step 3. All of you should be able to see the acceptance page. Click on the assignment link to see the project on GitHub.
+
+## Milestone 2 Contributions
+## Yeo Kai Jiun
+### UI Testing
+(the files listed below are located in the 'tests' folder)
+1. **pageNavigation.spec.mjs:**
+   - **User flow:** User navigates from the home page to the 'About' page, then to the 'Contact' page, then the 'Privacy Policy' page and finally back to the home page.
+   - **Verification:** The UI test verifies that the products and filters are displayed correctly on the home page, and that the links to each page works correctly.
+2. **productFilter.spec.mjs:**
+   - **User flow:** User filters the products on the home page by price range $0 to 19, then $100 or more, then resets the filters. User then filters by 'Clothing' category and price range $40 to 59.
+   - **Verification:** The UI test verifies that the products matching the filters are displayed correctly upon filtering.
+3. **productSearch.spec.mjs:**
+   - **User flow:** User searches for 'bread' keyword, then searches for 'shirt' keyword, then searches for 'jeans' keyword.
+   - **Verification:** The UI test verifies that the matching results for each search are displayed correctly.
+
+### Integration testing
+(the files listed below are located in the 'controllers' folder)
+1. **filterProductIntegration.test.js:** Testing the integration between filterProductController, productModel and the database by simulating a filter request.
+2. **searchProductIntegration.test.js:** Testing the intergration between searchProductController, productModel and the database by simulating a search request.
