@@ -23,6 +23,7 @@ The other members in the team will be able to see an existing team with your tea
 2. **productFilter.spec.mjs:**
    - **User flow:** User filters the products on the home page by price range $0 to 19, then $100 or more, then resets the filters. User then filters by 'Clothing' category and price range $40 to 59.
    - **Verification:** The UI test verifies that the products matching the filters are displayed correctly upon filtering.
+   - **NOTE:** This UI test fails non-deterministically due to an observed issue within the project codebase. Specifically, the product filter occasionally requires multiple clicks to function as intended. This behavior has been reproduced manually on the website and aligns with the test failures, indicating that the test fails not because it is inherently flaky but rather due to an issue in the filtering functionality. I have indicated this by labelling test 1 with "BUG:", similar to what I did for certain unit tests in milestone 1.
 3. **productSearch.spec.mjs:**
    - **User flow:** User searches for 'bread' keyword, then searches for 'shirt' keyword, then searches for 'jeans' keyword.
    - **Verification:** The UI test verifies that the matching results for each search are displayed correctly.
