@@ -1,10 +1,13 @@
+// Note: In order to run this successfully, you must have an instance of 
+// server running in the background, since jest is not configured to proxy requests
+// from frontend to backend.
+
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import Dashboard from "./Dashboard";
 import * as Auth from '../../context/auth';
 import '@testing-library/jest-dom/extend-expect';
-import PrivateRoute from "../../components/Routes/Private";
-import { MemoryRouter } from "react-router-dom"; // Import MemoryRouter for routing
+import { MemoryRouter } from "react-router-dom";
 import mongoose from "mongoose";
 import userModel from "../../../../models/userModel";
 import { hashPassword } from "../../../../helpers/authHelper";
@@ -53,6 +56,9 @@ describe("Dashboard Integration Testing", () => {
   });
 
   it("should be able to connect with MongoDB and display UserMenu in the Dashboard", async () => {
+    // Problem: jest is not configured to proxy frontend routes to backend.
+    // Workaround: Directly communicate with backend to get a response, then use the response by mocking
+    // so that the component can get a legit response.
     const { data } = await axios.post("http://localhost:6060/api/v1/auth/login", {
       email: 'mockuser@email.com',
       password: mockPassword
