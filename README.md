@@ -102,3 +102,11 @@ Cart Workflow
    4. Tests that Categories is able to call API successfully to display all categories
    5. Tests that CategoriesProduct is able to call API successfully to display all Products
    5a. (All tests fail as client API calls are missing server address)
+
+## Milestone 3 Contributions (Performance Testing)
+## Yeo Kai Jiun
+### Peak load performance testing
+Peak load test plan that simulates 1,000 users trying to register new accounts concurrently over a ramp-up period of 3 seconds.
+
+The relevant files, including the mock register credentials data, are located in:
+`performance-tests/registerUser-peak-performance-test/*`
