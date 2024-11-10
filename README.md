@@ -117,3 +117,10 @@ Using Jmeter test plan to simulates 100 diffent admins creating 10 products per 
 
 The relevant files, including the mock register credentials data, are located in:
 `performance-tests/adminCreateProduct/*`
+
+## Chang Si Kai
+### Login stress testing 
+Login stress test plan that simulates users logging in concurrently within 1 second. As JMeter does not have a function yet to programmtically ramp up the number of users per run and aggregate the data, we have to set the number of users, run the tests, analyse the results to look for any failures, then increase the number of users and repeat until failure occurs.
+
+The relevant files, including the mock register credentials data, are located in:
+`performance-tests/loginUser-stress-performance-test/*`
