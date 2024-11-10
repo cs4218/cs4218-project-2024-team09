@@ -110,3 +110,10 @@ Peak load test plan that simulates 1,000 users trying to register new accounts c
 
 The relevant files, including the mock register credentials data, are located in:
 `performance-tests/registerUser-peak-performance-test/*`
+
+## Hoang Huu Chinh
+### Load testing `creatProduct`
+Using Jmeter test plan to simulates 100 diffent admins creating 10 products per admin simutaneously over ramp-up period of 5 seconds.
+
+The relevant files, including the mock register credentials data, are located in:
+`performance-tests/adminCreateProduct/*`
