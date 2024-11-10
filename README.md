@@ -124,3 +124,12 @@ Login stress test plan that simulates users logging in concurrently within 1 sec
 
 The relevant files, including the mock register credentials data, are located in:
 `performance-tests/loginUser-stress-performance-test/*`
+
+## William Chau Wei Xuan
+### Cart workflow load testing 
+Cart workflow is load tested by calling the 6 API calls used in the 4 cart workflow pages. 
+We simulate normal usage at ~50 concurrent users by having 250 threads ramping over 10 seconds (~60 concurrent during tests). The larger sample ensures a more consistant result by keeping a smaller concurrent users over a longer period of time. 
+We simulate peak usage at ~500 concurrent users by having 500 threads ramping over 5 seconds (~400 concurrent during tests). The results show how the server behaves differently during normal and peak usage and completes the load testing.
+
+The relevant files are located in:
+`performance-tests/cart-load-performance-test/*`
