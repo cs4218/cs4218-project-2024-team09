@@ -1,0 +1,8 @@
+Label,# Samples,Average,Median,90% Line,95% Line,99% Line,Min,Max,Error %,Throughput,Received KB/sec,Sent KB/sec
+Category request load testing,500,1757,1703,3359,3595,3845,38,4857,0.000%,60.61341,19.47,8.58
+Category Product request load testing,500,4981,6005,6935,6968,7036,74,9004,0.000%,32.90556,10.06,4.82
+Product details request load testing,500,2800,3007,3919,3943,3967,40,5054,0.000%,29.07653,9.46,4.12
+Related Product Request load testing,500,2579,2953,3054,3940,3981,41,4078,0.000%,24.90908,7.22,4.79
+Cart Token request load testing,500,607,472,1110,1173,1311,186,2192,3.000%,24.43554,60.13,3.51
+Payment Request load testing,500,455,385,671,724,881,156,1099,1.800%,24.42718,6.64,13.02
+TOTAL,3000,2196,2008,5956,6061,6956,38,9004,0.800%,142.64657,94.50,30.88
